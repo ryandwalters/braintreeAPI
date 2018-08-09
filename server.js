@@ -1,5 +1,8 @@
 var express = require('express');
 var braintree = require("braintree");
+var client = require('braintree-web/client');
+var hostedFields = require('braintree-web/hosted-fields');
+
 
 var app = express()
 

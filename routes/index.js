@@ -3,6 +3,9 @@ var router = express.Router();
 var gateway = require('../lib/gateway');
 var braintree = require('braintree');
 var apiController = require('../controllers/apiController');
+var hostedFields = require('braintree-web/hosted-fields');
+var client = require('braintree-web/client');
+
 
 router.get('/', apiController.tokenGen, apiController.home);
 
