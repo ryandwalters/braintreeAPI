@@ -1,47 +1,95 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta http-equiv="X-UA-Compatible" content="ie=edge">
-
-  <link rel="stylesheet" type="text/css" href="style.css" />
-  <script src="logic.js" type="text/javascript"></script>
-
   <title>Checkout</title>
 </head>
 
 <body>
+  <form action="/" id="my-sample-form" method="post">
+    <label for="card-number">Card Number</label>
+    <div id="card-number"></div>
 
-  <div class="demo-frame">
-    <form action="/" method="post" id="cardForm">
-      <label class="hosted-fields--label" for="card-number">Card Number</label>
-      <div id="card-number" class="hosted-field"></div>
+    <label for="cvv">CVV</label>
+    <div id="cvv"></div>
 
-      <label class="hosted-fields--label" for="expiration-date">Expiration Date</label>
-      <div id="expiration-date" class="hosted-field"></div>
+    <label for="expiration-date">Expiration Date</label>
+    <div id="expiration-date"></div>
 
-      <label class="hosted-fields--label" for="cvv">CVV</label>
-      <div id="cvv" class="hosted-field"></div>
+    <input type="submit" value="Pay" disabled />
+  </form>
 
-      <label class="hosted-fields--label" for="postal-code">Postal Code</label>
-      <div id="postal-code" class="hosted-field"></div>
+  <script src="https://js.braintreegateway.com/web/3.35.0/js/client.min.js"></script>
+  <script src="https://js.braintreegateway.com/web/3.35.0/js/hosted-fields.min.js"></script>
+  <script>
+    var form = document.querySelector('#my-sample-form');
+    var submit = document.querySelector('input[type="submit"]');
 
-      <div class="button-container">
-          <input type="button" class="button button--small button--green" value="Purchase" id="submit" />
-        
+    braintree.client.create({
+      authorization: 'eyJ2ZXJzaW9uIjoyLCJhdXRob3JpemF0aW9uRmluZ2VycHJpbnQiOiJiYmY0NmE4ZDQxOGVjYzQ2MzM5MjNjZDc4ODM3MzliNmQ5MDgxOTE4ODU1MmQzYjYwZDA0NjA0Yzg2OWEzYmRmfGNyZWF0ZWRfYXQ9MjAxOC0wOC0wOVQxODozMDowMS4zNTcwMDMwNTMrMDAwMFx1MDAyNm1lcmNoYW50X2lkPXN3dHZtZnBmZmJucXF4NHZcdTAwMjZwdWJsaWNfa2V5PW1jZjNrNGpiaHc0MnQ2N2IiLCJjb25maWdVcmwiOiJodHRwczovL2FwaS5zYW5kYm94LmJyYWludHJlZWdhdGV3YXkuY29tOjQ0My9tZXJjaGFudHMvc3d0dm1mcGZmYm5xcXg0di9jbGllbnRfYXBpL3YxL2NvbmZpZ3VyYXRpb24iLCJjaGFsbGVuZ2VzIjpbXSwiZW52aXJvbm1lbnQiOiJzYW5kYm94IiwiY2xpZW50QXBpVXJsIjoiaHR0cHM6Ly9hcGkuc2FuZGJveC5icmFpbnRyZWVnYXRld2F5LmNvbTo0NDMvbWVyY2hhbnRzL3N3dHZtZnBmZmJucXF4NHYvY2xpZW50X2FwaSIsImFzc2V0c1VybCI6Imh0dHBzOi8vYXNzZXRzLmJyYWludHJlZWdhdGV3YXkuY29tIiwiYXV0aFVybCI6Imh0dHBzOi8vYXV0aC52ZW5tby5zYW5kYm94LmJyYWludHJlZWdhdGV3YXkuY29tIiwiYW5hbHl0aWNzIjp7InVybCI6Imh0dHBzOi8vb3JpZ2luLWFuYWx5dGljcy1zYW5kLnNhbmRib3guYnJhaW50cmVlLWFwaS5jb20vc3d0dm1mcGZmYm5xcXg0diJ9LCJ0aHJlZURTZWN1cmVFbmFibGVkIjp0cnVlLCJwYXlwYWxFbmFibGVkIjp0cnVlLCJwYXlwYWwiOnsiZGlzcGxheU5hbWUiOiJSeWFuIiwiY2xpZW50SWQiOm51bGwsInByaXZhY3lVcmwiOiJodHRwOi8vZXhhbXBsZS5jb20vcHAiLCJ1c2VyQWdyZWVtZW50VXJsIjoiaHR0cDovL2V4YW1wbGUuY29tL3RvcyIsImJhc2VVcmwiOiJodHRwczovL2Fzc2V0cy5icmFpbnRyZWVnYXRld2F5LmNvbSIsImFzc2V0c1VybCI6Imh0dHBzOi8vY2hlY2tvdXQucGF5cGFsLmNvbSIsImRpcmVjdEJhc2VVcmwiOm51bGwsImFsbG93SHR0cCI6dHJ1ZSwiZW52aXJvbm1lbnROb05ldHdvcmsiOnRydWUsImVudmlyb25tZW50Ijoib2ZmbGluZSIsInVudmV0dGVkTWVyY2hhbnQiOmZhbHNlLCJicmFpbnRyZWVDbGllbnRJZCI6Im1hc3RlcmNsaWVudDMiLCJiaWxsaW5nQWdyZWVtZW50c0VuYWJsZWQiOnRydWUsIm1lcmNoYW50QWNjb3VudElkIjoicnlhbiIsImN1cnJlbmN5SXNvQ29kZSI6IlVTRCJ9LCJtZXJjaGFudElkIjoic3d0dm1mcGZmYm5xcXg0diIsInZlbm1vIjoib2ZmIn0'
+    }, function (clientErr, clientInstance) {
+      if (clientErr) {
+        console.error(clientErr);
+        return;
+      }
 
-      </div>
-    </form>
-  </div>
+      // This example shows Hosted Fields, but you can also use this
+      // client instance to create additional components here, such as
+      // PayPal or Data Collector.
 
+      braintree.hostedFields.create({
+        client: clientInstance,
+        styles: {
+          'input': {
+            'font-size': '14px'
+          },
+          'input.invalid': {
+            'color': 'red'
+          },
+          'input.valid': {
+            'color': 'green'
+          }
+        },
+        fields: {
+          number: {
+            selector: '#card-number',
+            placeholder: '4111 1111 1111 1111'
+          },
+          cvv: {
+            selector: '#cvv',
+            placeholder: '123'
+          },
+          expirationDate: {
+            selector: '#expiration-date',
+            placeholder: '10/2019'
+          }
+        }
+      }, function (hostedFieldsErr, hostedFieldsInstance) {
+        if (hostedFieldsErr) {
+          console.error(hostedFieldsErr);
+          return;
+        }
 
+        submit.removeAttribute('disabled');
 
-  <script src="https://js.braintreegateway.com/web/3.35.0/js/client.js"></script>
-  <script src="https://js.braintreegateway.com/web/3.35.0/js/hosted-fields.js"></script>
+        form.addEventListener('submit', function (event) {
+          event.preventDefault();
 
+          hostedFieldsInstance.tokenize(function (tokenizeErr, payload) {
+            if (tokenizeErr) {
+              console.error(tokenizeErr);
+              return;
+            }
 
+            // If this was a real integration, this is where you would
+            // send the nonce to your server.
+            console.log('Got a nonce: ' + payload.nonce);
+          });
+        }, false);
+      });
+    });
+  </script>
 </body>
-
 
 </html>

@@ -1,5 +1,3 @@
-
-
 var form = document.querySelector('#demo-frame');
 var authorization = 'sandbox_cpwjwjjn_swtvmfpffbnqqx4v';
 
@@ -61,5 +59,7 @@ function createHostedFields(clientInstance) {
     };
     
     form.addEventListener('submit', teardown, false);
+  
   });
 }
+    
